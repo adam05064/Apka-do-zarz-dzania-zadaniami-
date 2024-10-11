@@ -22,7 +22,7 @@ class ZarzadzanieZadaniamiUI:
         dodaj_przycisk = ttk.Button(button_frame, text="Dodaj Zadanie", command=lambda: self.kontroler.dodaj_lub_edytuj_zadanie())
         dodaj_przycisk.pack(fill=tk.X, pady=5)
 
-        edytuj_przycisk = ttk.Button(button_frame, text="Edytuj Zadanie", command=lambda: self.kontroler.edytuj_zadanie())
+        edytuj_przycisk = ttk.Button(button_frame, text="Edytuj Zadanie", command=self.kontroler.edytuj_zadanie)
         edytuj_przycisk.pack(fill=tk.X, pady=5)
 
         usun_przycisk = ttk.Button(button_frame, text="Usuń Zadanie", command=self.kontroler.usun_zadanie)
@@ -31,11 +31,18 @@ class ZarzadzanieZadaniamiUI:
         zakoncz_przycisk = ttk.Button(button_frame, text="Zakończ Zadanie", command=self.kontroler.zakoncz_zadanie)
         zakoncz_przycisk.pack(fill=tk.X, pady=5)
 
+        # Dodaj przycisk do wyświetlania szczegółów zadania
+        szczegoly_przycisk = ttk.Button(button_frame, text="Pokaż Szczegóły", command=self.pokaz_szczegoly)
+        szczegoly_przycisk.pack(fill=tk.X, pady=5)
+
     def aktualizuj_liste_zadan(self, zadania):
         self.lista_zadan.delete(0, tk.END)
         for zadanie in zadania:
             self.lista_zadan.insert(tk.END, zadanie.title)
 
-    def pokaz_szczegoly_zadania(self, zadanie):
-        szczegoly = f"Tytuł: {zadanie.title}\nOpis: {zadanie.description}\nData realizacji: {zadanie.due_date}\nPriorytet: {zadanie.priority}\nUkończone: {'Tak' if zadanie.completed else 'Nie'}"
-        tk.messagebox.showinfo("Szczegóły zadania", szczegoly)
+    def pokaz_szczegoly(self):
+        wybrany_index = self.lista_zadan.curselection()
+        if wybrany_index:
+            zadanie = self.kontroler.zadania[wybrany_index[0]]  # Wyciągnij pierwszy indeks
+            self.kontroler.pokaz_szczegoly_zadania(zadanie)
+
