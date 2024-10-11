@@ -1,0 +1,17 @@
+CREATE TABLE zadania (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tytul VARCHAR(255) NOT NULL,
+    opis TEXT,
+    data_realizacji DATE,
+    priorytet ENUM('Niski', 'Średni', 'Wysoki') DEFAULT 'Średni',
+    ukonczone BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE tasks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    due_date DATE,
+    priority ENUM('Low', 'Medium', 'High') DEFAULT 'Medium',
+    completed BOOLEAN DEFAULT FALSE
+);
