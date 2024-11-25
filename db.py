@@ -8,7 +8,7 @@ class Baza:
     def __init__(self):
         try:
             self.polaczenie = mysql.connector.connect(
-                database=os.getenv("DB_NAME", "baza"),
+                database=os.getenv("DB_NAME", "bazadanych"),
                 user=os.getenv("DB_USER", "adam"),
                 password=os.getenv("DB_PASSWORD", "adam"),
                 host=os.getenv("DB_HOST", "192.168.1.16"),
@@ -56,7 +56,10 @@ class Baza:
                     self.polaczenie.commit()
                     return True
             except Error as e:
-                print(f"Wystąpił błąd podczas edytowania zadania: {e}")
+                # Informuj użytkownika o błędzie
+                messagebox.showerror("Błąd podczas edytowania zadania", f"Wystąpił błąd: {e}")
+        else:
+            messagebox.showerror("Błąd", "Brak połączenia z bazą danych.")
         return False
 
     def usun_zadanie(self, id_zadania):
